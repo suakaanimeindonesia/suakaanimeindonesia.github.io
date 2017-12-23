@@ -11,34 +11,7 @@
       <link rel="stylesheet" href="costum.css">
       <link href="https://vjs.zencdn.net/5.14.1/video-js.css" rel="stylesheet">
 
-<script>
-        SubtitlesOctopusOnLoad = function () {
-            var video = document.getElementById('video');
-            var options = {
-                video: video,
-                subUrl: '/JavascriptSubtitlesOctopus/test.ass',
-                fonts: ['/JavascriptSubtitlesOctopus/fonts/Arial.ttf', '/JavascriptSubtitlesOctopus/fonts/TimesNewRoman.ttf'],
-                //onReady: onReadyFunction,
-                //debug: true,
-                workerUrl: '/JavascriptSubtitlesOctopus/subtitles-octopus-worker.js'
-            };
-            window.octopusInstance = new SubtitlesOctopus(options); // You can experiment in console
-            //LibassJsReady = function () {
-            //};
-        };
 
-        var isFirstRun = true;
-        var runBenchmark = function () {
-            octopusInstance.video.width = 1280;
-            octopusInstance.video.height = 720;
-            octopusInstance.resize();
-            octopusInstance.runBenchmark();
-            if (isFirstRun) {
-                alert('See the result in console.');
-                isFirstRun = false;
-            }
-        };
-    </script>
   </head>
   <body>
 
@@ -210,34 +183,7 @@ Violet begins her journey as an Auto Memories Doll, and comes face to face with 
 
 
  
- <script>
-        SubtitlesOctopusOnLoad = function () {
-            var video = document.getElementById('video');
-            var options = {
-                video: video,
-                subUrl: '/JavascriptSubtitlesOctopus/test.ass',
-                fonts: ['/JavascriptSubtitlesOctopus/fonts/Arial.ttf', '/JavascriptSubtitlesOctopus/fonts/TimesNewRoman.ttf'],
-                //onReady: onReadyFunction,
-                //debug: true,
-                workerUrl: '/JavascriptSubtitlesOctopus/subtitles-octopus-worker.js'
-            };
-            window.octopusInstance = new SubtitlesOctopus(options); // You can experiment in console
-            //LibassJsReady = function () {
-            //};
-        };
-
-        var isFirstRun = true;
-        var runBenchmark = function () {
-            octopusInstance.video.width = 1280;
-            octopusInstance.video.height = 720;
-            octopusInstance.resize();
-            octopusInstance.runBenchmark();
-            if (isFirstRun) {
-                alert('See the result in console.');
-                isFirstRun = false;
-            }
-        };
-    </script>
+ 
 
 
 </body>
