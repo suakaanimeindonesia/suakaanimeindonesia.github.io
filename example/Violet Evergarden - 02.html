@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv=”Pragma” content=”no-cache”>
+<meta http-equiv=”Expires” content=”-1″>
+<meta http-equiv=”CACHE-CONTROL” content=”NO-CACHE”>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://vjs.zencdn.net/5.14.1/video-js.css" rel="stylesheet">
+</head>
+<body>
+<video class="video-js vjs-big-play-centered" id="video" src="http://35.187.56.251/www/%5BTerrific-Kopi%5D%20Violet%20Evergarden%20-%2002%20%5B9C10EFBB%5D.mkv" width="600" height="500" controls data-setup="{}"></video>
+<script src="https://vjs.zencdn.net/5.14.1/video.js"></script>
+<script src="/js/subtitles-octopus.js"></script>
+
+<script>
+    videojs('video').ready(function () {
+        // This would look more nice as a plugin but is's just as showcase of using with custom players
+        var video = this.tech_.el_;
+        window.SubtitlesOctopusOnLoad = function () {
+            var options = {
+                video: video,
+                subUrl: '/example/violet-lokalisasi-02.ass',
+                fonts: ['/example/fonts/Arial.ttf', '/example/fonts/TimesNewRoman.ttf', '/example/LT.ttf', '/example/angelina.TTF', '/example/LTFinnegan_MediumItalic.ttf', '/example/FOT-KleePro-DB-Str.otf', '/example/IwaMinPro-Md-Kami.ttf', '/example/Cabin-Bold.otf', '/example/Cabin-BoldItalic.otf', '/example/IwaMinPro-Md-Kami.ttf', '/example/justs.ttf' ],
+                //onReady: onReadyFunction,
+                //debug: true,
+                workerUrl: '/js/subtitles-octopus-worker.js'
+            };
+            window.octopusInstance = new SubtitlesOctopus(options); // You can experiment in console
+        };
+        if (SubtitlesOctopus) {
+            SubtitlesOctopusOnLoad();
+        }
+    });
+</script>
+</body>
+</html>
