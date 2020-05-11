@@ -1,0 +1,199 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{graphicx}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.5}
+
+\title{Program Perhitungan IP Kelulusan Mahasiswa}
+\author{Nuril Hidayah Taufiqi (19030214009) }
+\date{Minggu, 10 Mei 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{Logika Pemrograman}
+
+\paragraph{}
+Dalam program yang dibuat ini karena memakai program dengan tipe CLI maka digunakan fungsi standart streams dengan syntax input(). Terdapat 6 variabel dalam global scope di antaranya adalah variabel matakuliah yang berisikan tuple (nama matakuliah,sks), lalu variabel angka bertipe data list berisikan daftar nilai huruf, lalu variabel nilaiangka bertipe data list yang digunakan untuk mengisikan nilai huruf yang sudah dikonversikan, lalu variabel nilaiangkapakesks bertipe data list yang digunakan untuk mengisikan nilai huruf yang sudah dikonversikan dikali dengan jumlah sks mata kuliah tersebut. Lalu, terakhir adalah variabel nilaiakhir yang digunakan untuk tampungan perhitungan nilai akhir. 
+\paragraph{}
+Di dalam program ini terdapat 3 function, pertama yaitu konversiNilaiAngka dengan inputan parameter berupa karakter nilai huruf misalkan A yang nanti akan dikonversikan ke sesuai dengan nilai dari huruf itu misalkan A, maka akan dicari index dari string "A" dalam variabel angka, dan mengembalikan value list nilai sesuai dengan index yang diambil dari variabel angka. Kedua adalah function totalSKS() di mana mengembalikan value berupa totalSKS dari semua mata kuliah. Kemudian terdapat function hitungMatkulLulus() yang menghitung mata kuliah lulus dan tidak lulus dengan conditional jika nilai kurang dari 2.00 maka jumlah tidak lulus bertambah satu sebaliknya jumlah lulus bertambah satu.
+\paragraph{}
+Di dalam program utama dijalankan fungsi print() untuk menampilkan tulisan pada CLI, kemudian dilakukan perulangan sesuai dengan jumlah di dalam list matakuliah ditambahkan fungsi enumerate untuk menambahkan tuple index tambahan pada list matakuliah, selanjutnya di dalam perulangan tersebut dilakukan input ke dalam variabel list menggunakan fungsi input() berupa inputan nilai huruf yang nanti dilakukan proses konversi dan perhitungan.
+\paragraph{}
+Setelah semua list seperti nilaiangka, nilaiangkapakesks, dan nilaiakhir sudah mendapat value maka berikutnya adalah melakukan kesimpulan. Dalam perhitungan IP semester dilakukan statement aritmatika nilaiakhir/totalSKS(), untuk nilai terbaik mata kuliah mencari index nilai max dari list nilaiangkapakesks lalu memasukkannya pada index matakuliah, untuk nilai terburuk mata kuliah juga sama hanya mengganti fungsi menjadi min, berikutnya mencari matkul lulus dan tidak lulus dilakukan dengan memanggil fungsi hitungMatkulLulus() dengan mengembalikan 2 value yaitu lulus dan tidak lulus. Terakhir adalah conditional jika variabel tidaklulus lebih dari 0 maka, menampilkan jumlah mata kuliah yang harus diulang sebaliknya maka menampilkan tulisan "Selamat Anda lulus seluruh mata kuliah di semester ini"
+
+\section{Listing Code}
+\begin{lstlisting}
+import fileinput
+
+matakuliah=[("Aljabar Linear Elementer",3),("Bahasa Inggris",3),
+("Kalkulus Integral",4),("Konservasi Sumber Daya Alam",2),
+("Literasi Digital",2),("Metode Statistika",3),
+("Pendidikan Agama Islam",2),("Pendidikan Kewarganegaraan",2)]
+angka=["A","A-","B+","B","B-","C+","C","D","E"]
+nilai=[4.00,3.75,3.50,3.00,2.75,2.50,2.00,1.00,0.00]
+nilaiangka=[]
+nilaiangkapakesks=[]
+nilaiakhir=0
+
+def konversiNilaiAngka(char):
+    index = angka.index(char)
+    return nilai[index]
+
+def totalSKS():
+    totalsks=0
+    for l in matakuliah:
+        totalsks=totalsks+l[1]
+    return totalsks
+
+def hitungMatkulLulus():
+    lulus=0
+    tidaklulus=0
+    for x in nilaiangka:
+        if x<2.00:
+            tidaklulus=tidaklulus+1
+        elif x>=2.00:
+            lulus=lulus+1
+    return lulus,tidaklulus
+
+print("Daftar nilai mata kuliah semester 2:")
+for index,matkul in enumerate(matakuliah):
+    index=index+1
+    print("{}. {}: ".format(index,matkul[0]),end='')
+    payload = input()
+    returnstring = konversiNilaiAngka(payload)
+    nilaiangka.append(returnstring)
+    nilaiangkapakesks.append(returnstring*matkul[1])
+    nilaiakhir=nilaiakhir+(returnstring*matkul[1])
+
+ip=nilaiakhir/totalSKS()
+print("IP Semester ini adalah : {}".format(format(ip,'.2f')))
+print("Nilai terbaik adalah mata kuliah :
+{}".format(matakuliah[nilaiangkapakesks.index(max(nilaiangkapakesks))][0]))
+print("Nilai terburuk adalah mata kuliah :
+{}".format(matakuliah[nilaiangkapakesks.index(min(nilaiangkapakesks))][0]))
+lulus, tidaklulus = hitungMatkulLulus()
+print("Anda lulus {} Mata Kuliah".format(lulus))
+if tidaklulus>0:
+    print("Anda harus mengulang {} Mata Kuliah".format(tidaklulus))
+else:
+    print("Selamat Anda Lulus Seluruh Mata Kuliah di Semester Ini")
+
+\end{lstlisting}
+\paragraph{}
+\begin{lstlisting}
+matakuliah=[("Aljabar Linear Elementer",3),("Bahasa Inggris",3)]
+\end{lstlisting}
+Adalah list dengan tuple di dalamnya yang berisikan mata kuliah dan sks-nya di mana index 0 dari list matakuliah[0] yang didapatkan adalah [("Aljabar Linear Elementer",3)
+dan jika ingin mendapatkan value dari tuple maka dituliskan indexnya juga berarti matakuliah[0][0] = Aljabar Linear Elementer dan matakuliah[0][1] = 3
+
+\begin{lstlisting}
+huruf=["A","A-","B+","B","B-","C+","C","D","E"]
+\end{lstlisting}
+Adalah list dengan isi huruf dari nilai mata kuliah jika diakses index 0 misalkan huruf[0] maka didapatkan value "A" list ini punya korelasi dengan list nilai berdasarkan indexnya
+\begin{lstlisting}
+nilai=[4.00,3.75,3.50,3.00,2.75,2.50,2.00,1.00,0.00]
+\end{lstlisting}
+Adalah list dengan isi nilai dari nilai huruf mata kuliah jika diakses index 0 misalkan nilai[0] maka didapatkan value 4.00 list ini punya korelasi dengan list huruf berdasarkan indexnya
+\begin{lstlisting}
+nilaihuruf=[], nilaihurufpakesks=[], nilaiakhir=0
+\end{lstlisting}
+Adalah variabel yang nanti digunakan untuk menyimpan hasil perhitungan
+\begin{lstlisting}
+index = huruf.index(char)
+\end{lstlisting}
+Syntax .index digunakan untuk mencari index dari suatu nilai dalam list misalkan dalam kasus ini kita mencari index dari karakter yang ada di dalam varibel huruf
+misalkan ada list huruf=["A","B","C"] jika dijalankan fungsi huruf.index("B") maka akan didapatkan value 1 karena karakter "B" terdapat dalam index ke 1
+\begin{lstlisting}
+return nilai[index]
+\end{lstlisting}
+Adalah syntax untuk mengembalikan nilai dari fungsi, dalam kasus ini kita mengembalikan value dari list nilai berdasarkan index yang kita dapatkan dari list huruf, misalkan kita mencari index dari huruf "A" tadi didapatkan nilai index 0 maka kita mengembalikan value list nilai di index 0 yaitu 4.00
+
+\begin{lstlisting}
+totalsks=0 
+\end{lstlisting}
+Digunakan untuk variabel sementara perhitungan
+\begin{lstlisting}
+for l in matakuliah:
+	totalsks=totalsks+l[1]
+\end{lstlisting}
+Syntax di sini mengambil list matakuliah untuk diiterasikan / diperulangan variabel l di sini akan mengisi value dari list matakuliah sendiri di sini setiap perulangan l akan mengisi value tuple dari matakuliah misalkan dalam perulangan ke pertama maka didapatkan ("Aljabar Linear Elementer",3) kemudian dijalankan syntax totalsks=totalsks+l[1] dalam tuple index ke 1 adalah nilai sks, jadi yang akan berjalan adalah totalsks=0+3, totalsks=3+3 dan seterusnya hingga didapatkan nilai totalsks
+\begin{lstlisting}
+for x in nilaihuruf:
+	 if x<2.00:
+            tidaklulus=tidaklulus+1
+        elif x>=2.00:
+            lulus=lulus+1
+\end{lstlisting}
+Syntax x mengisi value dari list nilaihuruf kemudian diiterasikan / diperulangan masuk ke conditional if else di mana jika nilaihuruf kurang dari 2.00 maka variabel counter tidaklulus bertambah 1 dan jika lebih dari 2.00 maka variabel counter lulus bertambah satu
+\begin{lstlisting}
+for index,matkul in enumerate(matakuliah):
+\end{lstlisting}
+Dalam kasus ini melakukan perulangan pada list matakuliah di sini ditambahkan enumerate artinya menambahkan index di dalam tiap value list maka yang akan terjadi value dari list matakuliah akan menjadi (0,("Aljabar Linear Elementer",3)) index di sini akan mengisi index dari perulangan dan matkul di sini akan mengisi tuple dari matakuliah
+\begin{lstlisting}
+index=index+1
+\end{lstlisting}
+index awal diperulangan adalah 0 jadi jika ditambahkan 1 akan menjadi 1 dan seterusnya, dilakukan ini agar lebih efisien dalam output penomoran untuk CLI
+\begin{lstlisting}
+print("{}. {}: ".format(index,matkul[0]),end='')
+\end{lstlisting}
+fungsi print adalah untuk memmberikan output pada console sedangkan .format di sini berfunsi untuk interpolasi string di mana misalkan terdapat variabel string a="Halo {}"
+kemudian variabel b="cantik" ketika a di format maka a.format(b) maka yang akan muncul adalah "Halo cantik"
+
+\begin{lstlisting}
+payload = input()
+\end{lstlisting}
+payload di sini berguna sebagai variabel tampungan sementara untuk inputan dari console
+\begin{lstlisting}
+returnstring = konversiNilaiHuruf(payload)
+\end{lstlisting}
+returnstring di sini adalah variabel untuk menampung nilai kembalian dari fungsi konversiNilaiHuruf kemudian payload di sini didapatkan dari inputan dari console, jika misalkan di console kita inputkan A maka di dalam returnstring akan didapatkan nilai 4.00
+\begin{lstlisting}
+nilaihuruf.append(returnstring)
+\end{lstlisting}
+append digunakan untuk menambahkan nilai pada list, di sini menambahkan nilai dari konnversi nilai huruf tadi ke dalam list nilaihuruf
+\begin{lstlisting}
+nilaihurufpakesks.append(returnstring*matkul[1])
+\end{lstlisting}
+sama seperti menambahkan nilai konversi nilai huruf ke list nilaihuruf tapi yang membedakan adalah yang ditambahkan hasil perkalian antara konversi nilai huruf dikali sks
+lalu ditambahkan ke list nilaihurufpakesks
+\begin{lstlisting}
+nilaiakhir=nilaiakhir+(returnstring*matkul[1])
+\end{lstlisting}
+digunakan untuk operasi matematika menghitung nilai akhir menambahkan seluruh nilai yang ada di nilaihurufpakesks
+\begin{lstlisting}
+ip=nilaiakhir/totalSKS()
+\end{lstlisting}
+Variabel ip akan mengisi value dari perhitungan dari nilaiakhir dibagi totalSKS()
+
+\begin{lstlisting}
+print("IP Semester ini adalah : {}".format(format(ip,'.2f')))
+print("Nilai terbaik adalah mata kuliah :
+{}".format(matakuliah[nilaihurufpakesks
+.index(max(nilaihurufpakesks))][0]))
+\end{lstlisting}
+
+Melakukan print ke console atas hasil semua perhitungan, untuk mencari nilai terbaik dari syntax paling kanan dulu max(nilaihurufpakesks) maka mencari value dari nilai paling tinggi dalam list nilaihurufpakesks setelah didapatkan maka parameter dimasukkan ke nilaihurufpakesks.index(...) yang berarti mencari index dari nilai paling tinggi tersebut di dalam list nilaihurufpakesks setelah didapatkan index maka mencari nilai value di list matakuliah berdasarkan index tersebut sehingga didapatkan matkul dengan nilai tertinggi yang mana, sebaliknya juga dengan mencari nilai terburuk yang membedakan menggunakan min
+
+lulus, tidaklulus = hitungMatkulLulus()
+Karena fungsi hitungMatkulLulus() mengembalikan dua nilai yaitu jumlah lulus dan tidak lulus mata kuliah maka diinisiasi 2 variabel untuk menampung value tersebut
+
+print("Anda lulus {} Mata Kuliah".format(lulus))
+if tidaklulus>0:
+    print("Anda harus mengulang {} Mata Kuliah".format(tidaklulus))
+else:
+    print("Selamat Anda Lulus Seluruh Mata Kuliah di Semester Ini")
+Kondisional di mana jika variabel tidaklulus lebih dari 0 maka menampilkan mata kuliah berapa mengulang sebaliknya menampilkan perkataan selamat
+
+
+\section{Screenshot Hasil Simulasi}
+    \centering
+    \includegraphics[scale=0.9]{cd1.png}
+    \caption{Hasil simulasi dengan kondisis lulus semua}
+    \centering
+    \includegraphics[scale=0.9]{cd2.png}
+    \caption{Hasil simulasi dengan kondisi tidak lulus beberapa}
+\end{document}
