@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 08, 2021 at 11:47 AM
+-- Host: localhost
+-- Generation Time: Jun 25, 2021 at 05:58 AM
 -- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.6
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `visittimorleste`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account`
+--
+
+CREATE TABLE `account` (
+  `id_account` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `birthday` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `account`
+--
+
+INSERT INTO `account` (`id_account`, `first_name`, `last_name`, `email`, `password`, `birthday`) VALUES
+(1, 'Padang', 'Perwira Yudha', 'padangperwirayudha@gmail.com', 'password', '1998-08-16'),
+(2, 'tes', '123', 'tes123@gmail.com', 'p3rw1rapcaaa', NULL),
+(6, 'tes123', 'Ttteesss', 'Tes@gmail.com', 'testing', NULL),
+(7, 'testingmekmek', 'testingzzz', 'testing@gmail.com', 'testing', NULL);
 
 -- --------------------------------------------------------
 
@@ -67,7 +92,8 @@ CREATE TABLE `localreview` (
 --
 
 INSERT INTO `localreview` (`id_localreview`, `id_tours`, `id_user`, `quote`, `whyshouldvisit`, `specialtip`) VALUES
-(2, 2, 3, 'Nikmati rasa stroberi di sini', 'Enak banget buat duduk duduk gaes', 'Mending kalau ke sini bawa golok buat bacok pengunjung sekitar');
+(2, 5, 3, 'Nikmati rasa stroberi di sini', 'Enak banget buat duduk duduk gaes', 'Mending kalau ke sini bawa golok buat bacok pengunjung sekitarzz'),
+(3, 6, 1, 'Uindah polll', 'pokoknya harps ke sini', 'bawa hang');
 
 -- --------------------------------------------------------
 
@@ -83,6 +109,19 @@ CREATE TABLE `precinct` (
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `precinct`
+--
+
+INSERT INTO `precinct` (`id_precinct`, `precinct_name`, `mini_description`, `description`, `image`) VALUES
+(1, 'tes123', 'asdasdasd', 'asdasdasdasd', 'Screen Shot 2021-06-15 at 23.45.21.png-1623947825826-315258601.png'),
+(2, 'tes123', 'sadasd', 'asdasdasd', 'Screen Shot 2021-06-15 at 23.45.21.png-1623948229289-156530470.png'),
+(3, 'testinglagi', 'testinglagi', 'testinglagi', 'Screen Shot 2021-06-15 at 23.45.21.png-1623948596382-180607977.png'),
+(4, 'atatat', 'atatat', 'attar', 'Screen Shot 2021-06-15 at 23.45.21.png-1623948755692-939578819.png'),
+(5, 'atatatadsasdasdasd', 'atatat', 'attar', 'Screen Shot 2021-06-15 at 23.45.21.png-1623948801889-818601500.png'),
+(6, 'aaa', 'aaaa', 'bbbb', 'Screen Shot 2021-06-15 at 23.45.21.png-1623948840691-684462851.png'),
+(7, 'dsfdsf', 'dsfdsfdsf', 'ffff', 'Screen Shot 2021-06-15 at 23.45.21.png-1623949544867-576610228.png');
+
 -- --------------------------------------------------------
 
 --
@@ -93,6 +132,13 @@ CREATE TABLE `precinct_tours` (
   `id_precinct` int(11) NOT NULL,
   `id_tours` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `precinct_tours`
+--
+
+INSERT INTO `precinct_tours` (`id_precinct`, `id_tours`) VALUES
+(1, 5);
 
 -- --------------------------------------------------------
 
@@ -111,6 +157,13 @@ CREATE TABLE `promotions` (
   `termsandconditions` text NOT NULL,
   `disclaimer` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `promotions`
+--
+
+INSERT INTO `promotions` (`id_promotions`, `promotions_name`, `id_tours`, `from_time`, `to_time`, `description`, `redemptioninstruction`, `termsandconditions`, `disclaimer`) VALUES
+(2, 'aaaaaazzz', 5, '2021-06-18', '2021-06-26', '<p><b>sdasda</b></p>', '<p>asdasd</p>', '<p>asdasd</p>', '<p>asdasd</p>');
 
 -- --------------------------------------------------------
 
@@ -133,7 +186,6 @@ INSERT INTO `schedule` (`days`, `from_time`, `to_time`, `id_tours`) VALUES
 ('Sunday', '09:30:00', '09:30:00', 3),
 ('Sunday', '09:30:00', '09:30:00', 5),
 ('Sunday', '09:30:00', '09:30:00', 2),
-('Thursday', '09:30:00', '09:30:00', 1),
 ('Sunday', '09:30:00', '09:30:00', 6),
 ('Public Holiday', '09:30:00', '09:30:00', 6);
 
@@ -151,13 +203,6 @@ CREATE TABLE `spotlights` (
   `spotlights_content` text NOT NULL,
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `spotlights`
---
-
-INSERT INTO `spotlights` (`id_spotlights`, `spotlights_title`, `id_tours`, `date_posted`, `spotlights_content`, `image`) VALUES
-(4, 'sadsad', 1, '2021-06-08 15:59:59', '<b>dafdafsfd</b>', 'free_PNG90771.png-1623142799502-68107490.png');
 
 -- --------------------------------------------------------
 
@@ -181,11 +226,10 @@ CREATE TABLE `tours` (
 --
 
 INSERT INTO `tours` (`id_tours`, `id_category`, `name`, `address`, `website`, `phone`, `description`, `image`) VALUES
-(1, 1, 'sadasd', 'sadasda', 'sdasdasd', 'asdadsa', 'asdadsad', 'a.jpg'),
 (2, 1, 'satu', 'satu', 'satu', 'satu', 'satu', '405ff63f-2ac8-473e-807e-495f21850af9.jpg'),
 (3, 1, 'xxx', 'xxx', 'xxx', 'xxx', 'xxx', '405ff63f-2ac8-473e-807e-495f21850af9.jpg'),
 (5, 1, 'Memek', 'awaw', 'awaw', 'aw', 'awaw', '02a54dee1a0b584d33e37c89a80aad68.jpg-1623085069886-915700970.jpg'),
-(6, 9, 'tes123', 'nyiahaha', 'nyiahaha', 'nyiahaha', 'nyiahaha', 'sneakpeak1.png-1623087855205-688261418.png');
+(6, 9, 'tes123', 'nyiahaha', 'nyiahaha', 'nyiahaha', 'nyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiahahanyiaha', 'sneakpeak1.png-1623087855205-688261418.png');
 
 -- --------------------------------------------------------
 
@@ -215,6 +259,13 @@ INSERT INTO `user` (`id_user`, `name`, `type`, `minitype`, `aboutme`, `locals`, 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `account`
+--
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`id_account`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `category`
@@ -281,6 +332,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `account`
+--
+ALTER TABLE `account`
+  MODIFY `id_account` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
@@ -290,19 +347,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `localreview`
 --
 ALTER TABLE `localreview`
-  MODIFY `id_localreview` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_localreview` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `precinct`
 --
 ALTER TABLE `precinct`
-  MODIFY `id_precinct` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_precinct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `promotions`
 --
 ALTER TABLE `promotions`
-  MODIFY `id_promotions` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_promotions` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `spotlights`
